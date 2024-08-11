@@ -1,10 +1,12 @@
+import React, { useState } from "react";
+
+
+
 
 const Test = () => {
+
     return (
-      <div className="test">
-        <p>This is Test page.</p>
-      </div>
-        
+        <>nothing</>
     );
   }
 

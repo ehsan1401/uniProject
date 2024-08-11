@@ -29,3 +29,41 @@
     font-family: 'Vanilla';
     src: url('../public/Fonts/Mj_Vanilla.ttf') format('truetype');
     }
+@font-face {
+    font-family: 'Titr';
+    src: url('../public/Fonts/BTitrBold.ttf') format('truetype');
+    }
+
+
+
+
+    
+    /* styles */
+
+
+
+    .scrollbar-left::-webkit-scrollbar {
+        width: 12px;
+        height: 12px;
+      }
+      
+      .scrollbar-left::-webkit-scrollbar-track {
+        background: #f1f1f1;
+      }
+      
+      .scrollbar-left::-webkit-scrollbar-thumb {
+        background: #888;
+      }
+      
+      .scrollbar-left::-webkit-scrollbar-thumb:hover {
+        background: #555;
+      }
+      
+      .scrollbar-left {
+        scrollbar-width: thin;
+        scrollbar-color: #888 #f1f1f1;
+        direction: rtl;
+      }
+      .ant-image-preview-operations {
+        display: none;
+      }

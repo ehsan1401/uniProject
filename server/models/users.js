@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const Birthday = require("./Birthday")
 
 const UserSchema = new mongoose.Schema({
   username: {
@@ -16,6 +17,34 @@ const UserSchema = new mongoose.Schema({
   token: {
     type: String,
     required: true,
+  },
+  act: {
+    type: String,
+    required: true,
+  },
+  imageAddress: {
+    type: String,
+    required: false,
+  },
+  PhoneNumber: {
+    type: String,
+    required: false,
+  },
+  bookmarkId: {
+    type: String,
+    required: true,
+  },
+  HouseAddress: {
+    type: String,
+    required: false,
+  },
+  Birthday: {
+    type: Birthday.schema,
+    required: false,
+  },
+  degree: {
+    type: String,
+    required: false,
   },
 });
 

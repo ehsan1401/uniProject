@@ -8,7 +8,8 @@ import Test from './components/pages/test';
 import NotFoundPage from './components/pages/404';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
-import Dashboard from './components/auth/Dashboard';
+import Dashboard from './components/auth/dashboard/Dashboard';
+import {MessageProvider} from './components/Tools/MessageProvider';
 function App() {
 
   const router = createBrowserRouter([
@@ -41,14 +42,14 @@ function App() {
   );
 
   return (
-
-      <div className="App p-5 h-screen">
-        <div className="bg-neutral-300 rounded-md h-[100%] overflow-hidden">
-          <RouterProvider router={router}>
-          </RouterProvider>
+      <MessageProvider>
+        <div className="App p-5 h-screen">
+          <div className="bg-neutral-300 rounded-md h-[100%] overflow-hidden">
+            <RouterProvider router={router}>
+            </RouterProvider>
+          </div>
         </div>
-      </div>
-
+      </MessageProvider>
   );
 }
 

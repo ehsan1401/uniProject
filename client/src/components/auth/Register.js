@@ -1,22 +1,27 @@
-import Navigation from "../website/NavBar";
+import Navigation from "../Tools/NavBar";
 import { MdEmail , MdLockPerson } from "react-icons/md";
 import { FaUser } from "react-icons/fa";
 
 //error dare
 
-import { Button, ConfigProvider, Flex, Input , Tooltip} from 'antd';
+import { Button, ConfigProvider, Flex, Input , Radio, Space, Tooltip} from 'antd';
 import{useState , useEffect} from 'react';
 import Axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { RiErrorWarningLine } from "react-icons/ri";
 import { GrStatusGood } from "react-icons/gr";
+import { Link } from "react-router-dom";
+import { useMessageApi } from "../Tools/MessageProvider";
 
 const Register = () => {
     
     const navigate = useNavigate();
+    const messageApi = useMessageApi();
 
     const [user , setUser] = useState();
     const [token , setToken] = useState();
+    const [bookmarkId , setBookmarkId] = useState();
+
 
 
 
@@ -41,6 +46,11 @@ const Register = () => {
 
     const emailRegex = /^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
 
+    const [act, setAct] = useState('student');
+    const StudendCheckerHandler = (e) => {
+        console.log('radio checked', e.target.value);
+        setAct(e.target.value);
+      };
 
 
     const handleUsername = (e)=>{
@@ -56,7 +66,7 @@ const Register = () => {
         e.target.value.length < 8 ? setPasswordStatus("warning") : setPasswordStatus("") ;
         e.target.value.length < 8 ? 
         setPasswordSuffixError(
-            <Tooltip title="پسورد باید بیشتر از 8 کاراکتر باشد">
+            <Tooltip title="گذرواژه باید بیشتر از 8 کاراکتر باشد">
                 <RiErrorWarningLine style={{ color: '#ffa025' }} />
             </Tooltip>
         )
@@ -86,6 +96,8 @@ const Register = () => {
 
     useEffect(() => {
         setToken(crypto.randomUUID())
+        const truncatedUuid = crypto.randomUUID().slice(0, 5);
+        setBookmarkId(truncatedUuid)
     }, []);
 
     if(email){            
@@ -105,6 +117,7 @@ const Register = () => {
                         setEmailError("")
                         if(password){
                             if(repassword){
+                                setRepasswordError("")
                                 if(password === repassword){
                                     if(passwordStatus === "warning" || repasswordStatus === "warning"){
                                         setPasswordError("طول کاراکتر گذرواژه رعایت نشده است!")
@@ -113,9 +126,18 @@ const Register = () => {
                                             username,
                                             email,
                                             password,
-                                            token
+                                            token,
+                                            act,
+                                            bookmarkId
                                         }).then(()=>{
                                             localStorage.setItem('token',token);
+                                            messageApi.open({
+                                                type: 'success',
+                                                content: 'با موفقیت ثبت نام شدید',
+                                                style: {
+                                                    marginTop: '10vh',
+                                                  },
+                                              });
                                             navigate('/home');
                                         })
                                     }
@@ -157,7 +179,7 @@ const Register = () => {
                                     },
                                 }}
                             >
-                                <Flex gap="large" vertical>
+                                <Flex gap="small" vertical>
                                     <Input
                                         placeholder="نام کاربری خود را وارد کنید..." 
                                         size="large" 
@@ -189,7 +211,7 @@ const Register = () => {
                                         suffix={passwordSuffixError}
                                     />
                                     <Input 
-                                        placeholder="پسورد خود را مجددا وارد کنید..." 
+                                        placeholder="گذرواژه خود را مجددا وارد کنید..." 
                                         size="large" 
                                         type="password" 
                                         status={repasswordStatus}
@@ -197,16 +219,21 @@ const Register = () => {
                                         onChange={handleRepassword}
                                         suffix={repasswordSuffixError}
                                     />
+                                    <Radio.Group onChange={StudendCheckerHandler} value={act}>
+                                            <Radio value='student' ><span style={{fontFamily:"Negaar-Regular"}} className="text-base text-neutral-300"> دانش آموز هستم</span></Radio>
+                                            <Radio value='teacher' ><span style={{fontFamily:"Negaar-Regular"}} className="text-base text-neutral-300"> استاد هستم</span></Radio>
+                                    </Radio.Group>
                                     <Button
                                         type="primary"
                                         block
                                         onClick={handleSubmit}
                                     >
-                                        <span className="text-lg" style={{fontFamily : 'Negaar-Bold'}}>ورود</span>
+                                        <span className="text-lg" style={{fontFamily : 'Negaar-Bold'}}>ثبت نام</span>
                                     </Button>
                                 </Flex>
                             </ConfigProvider>
                         </div>
+                        <p className="pr-5 py-2 text-neutral-200" style={{fontFamily:"koodak"}}>حساب کاربری دارید؟ <Link to="/Login"><span className="text-lg text-blue-600 hover:text-blue-400 transition duration-150" style={{fontFamily: "Negaar-Bold"}}>وارد شوید</span></Link></p>
                         <div className="text-orange-400 pr-5 pt-2" style={{fontFamily: "koodak"}}>
                             <p>{usernameError}</p>
                             <p>{passwordError}</p>

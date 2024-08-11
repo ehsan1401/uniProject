@@ -1,17 +1,22 @@
 
-import Navigation from "../website/NavBar";
+import Navigation from "../Tools/NavBar";
 import { FaUser , FaUnlock } from "react-icons/fa";
 import { RiErrorWarningLine } from "react-icons/ri";
 import { GrStatusGood } from "react-icons/gr";
-import { Button, ConfigProvider, Flex, Input , Tooltip} from 'antd';
+import { Button, ConfigProvider, Flex, Input , Tooltip } from 'antd';
 import{useState , useEffect} from 'react';
 import Axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { Link } from "react-router-dom";
+import { useMessageApi } from '../Tools/MessageProvider';
+
 
 
 
 const Login = () => {
     const navigate = useNavigate();
+    const messageApi = useMessageApi();
+
     const token = localStorage.getItem('token');
     const [Users , setUsers] = useState([{}])
     const [userLogin , setUserLogin] = useState();
@@ -34,7 +39,6 @@ const Login = () => {
 
 
 
-
     useEffect(()=>{
         if(token){
             navigate('/home');
@@ -44,24 +48,22 @@ const Login = () => {
         })
     },[])
 
-
+    const emailRegex = /^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
     const handleUsername = (e)=>{
         setUsernameValue(e.target.value);
-        e.target.value.length < 8 ? setStatus("warning") : setStatus("") ;
-        e.target.value.length < 8 ? 
-        setusersuffixIcon(
-            <Tooltip title="خطایی وجود دارد">
-                <RiErrorWarningLine style={{ color: '#ffa025' }} />
-            </Tooltip>
-        )
-         : 
-         setusersuffixIcon(
-            <Tooltip title="بسیار عالی">
-                <GrStatusGood style={{ color: '#49d823' }} />
-            </Tooltip>
-         ) ;
-
-        e.target.value.length < 8 ? setErrorMessage("طول ایمیل کاربری باید بیشتر از 8 باشد!") : setErrorMessage("") ;
+        if(emailRegex.test(e.target.value)){
+            setusersuffixIcon(
+                <Tooltip title="بسیار عالی">
+                    <GrStatusGood style={{ color: '#49d823' }} />
+                </Tooltip>
+             ) ;
+        }else{
+            setusersuffixIcon(
+                <Tooltip title="ایمیل معتبر نیست!">
+                    <RiErrorWarningLine style={{ color: '#ffa025' }} />
+                </Tooltip>
+            );
+        }
 
     }
 
@@ -93,8 +95,8 @@ const Login = () => {
 
     
         if(!usernameValue && !passwordValue){
-            setPasswordErrorMessage("پسورد را وارد کنید");
-            setErrorMessage("ایمیل کاربری را وارد کنید");
+            setPasswordErrorMessage("پسورد را وارد کنید!");
+            setErrorMessage("ایمیل کاربری را وارد کنید!");
         }else{
             Users.forEach((user) => {
                 if (user.email === usernameValue) {
@@ -102,6 +104,7 @@ const Login = () => {
                         localStorage.setItem("token", user.token);
                         setUserLogin(user.token);
                         passwordCorrect = true;
+
                     }
                     userFound = true;
                 }
@@ -110,10 +113,18 @@ const Login = () => {
             if (userFound) {
                 setErrorMessage("");
                 if (passwordCorrect) {
+                    messageApi.open({
+                        type: 'success',
+                        content: 'با موفقیت وارد شدید',
+                        style: {
+                            marginTop: '10vh',
+                          },
+                      });
                     setErrorMessage("");
                     navigate('/Dashboard');
+
                 } else {
-                    passwordValue ? setPasswordErrorMessage("پسورد اشتباه است!") : setPasswordErrorMessage("پسورد را وارد کنید");
+                    passwordValue ? setPasswordErrorMessage("پسورد اشتباه است!") : setPasswordErrorMessage("!پسورد را وارد کنید");
                 }
             } else {
                 setUserLogin({});
@@ -129,7 +140,7 @@ const Login = () => {
             <div className="Login h-full w-full" dir="rtl">
                 <form action="" className="w-full h-full flex justify-center items-center">
 
-                    <div className="bg-gray-800 w-1/3 h-1/2 rounded-md px-5 pt-7">
+                    <div className="bg-gray-800 lg:w-1/3 md:w-[45%] w-[60%] h-auto rounded-md px-5 py-7 ">
                         <h1 className="text-2xl p-3 text-center text-neutral-100" style={{fontFamily : "Negaar-Regular"}}>ورود به رزومه ساز</h1>
                         <p className="w-full px-5 bg-neutral-100 h-1 flex justify-center"></p>
                         <div className="h-auto w-full mt-10 px-3">
@@ -165,6 +176,14 @@ const Login = () => {
                                 </Flex>
                             </ConfigProvider>
                         </div>
+                        <p className="pr-5 py-2 text-neutral-200" style={{fontFamily:"koodak"}}>
+                            حساب کاربری ندارید؟ 
+                        <Link to="/Register">
+                            <span className="text-lg px-1 text-blue-600 hover:text-blue-400 transition duration-150" style={{fontFamily: "Negaar-Bold"}}>
+                                ثبت نام کنید
+                            </span>
+                            </Link>
+                        </p>
                         <div className="text-orange-400 pr-5 pt-2" style={{fontFamily: "koodak"}}>
                             <p>{errorMessage}</p>
                             <p>{passwordErrorMessage}</p>

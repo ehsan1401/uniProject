@@ -4,6 +4,8 @@ const app = express();
 const mongoose = require('mongoose');
 const UserModel = require('./models/users');
 const cors = require('cors')
+
+
 mongoose.connect(
     "mongodb+srv://ehsangood1382:WBzgQsaAsdZWyerW@cls.hzyer62.mongodb.net/Resume?retryWrites=true&w=majority&appName=CLS",
     { useNewUrlParser: true, useUnifiedTopology: true }
@@ -62,8 +64,8 @@ app.post("/addUser", async (req, res) => {
   }
 });
 
-
-
 app.listen(3001, () => {
     console.log("Server is running on port 3001");
 });
+
+
