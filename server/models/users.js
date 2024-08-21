@@ -1,6 +1,4 @@
 const mongoose = require("mongoose");
-const Birthday = require("./Birthday")
-
 const UserSchema = new mongoose.Schema({
   username: {
     type: String,
@@ -34,12 +32,12 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  HouseAddress: {
-    type: String,
+  bookmarks: {
+    type: [String],
     required: false,
   },
   Birthday: {
-    type: Birthday.schema,
+    type: String,
     required: false,
   },
   degree: {

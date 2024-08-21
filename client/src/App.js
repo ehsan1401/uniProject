@@ -44,7 +44,7 @@ function App() {
   return (
       <MessageProvider>
         <div className="App p-5 h-screen">
-          <div className="bg-neutral-300 rounded-md h-[100%] overflow-hidden">
+          <div className="bg-neutral-300 rounded-md h-[100%] overflow-x-hidden">
             <RouterProvider router={router}>
             </RouterProvider>
           </div>

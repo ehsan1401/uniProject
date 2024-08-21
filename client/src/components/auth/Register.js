@@ -42,11 +42,14 @@ const Register = () => {
 
     const [passwordSuffixError , setPasswordSuffixError] = useState();
     const [repasswordSuffixError , setRepasswordSuffixError] = useState();
+    const [act, setAct] = useState('student');
+    const tags = [] ;
+
 
 
     const emailRegex = /^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
 
-    const [act, setAct] = useState('student');
+
     const StudendCheckerHandler = (e) => {
         console.log('radio checked', e.target.value);
         setAct(e.target.value);
@@ -122,6 +125,10 @@ const Register = () => {
                                     if(passwordStatus === "warning" || repasswordStatus === "warning"){
                                         setPasswordError("طول کاراکتر گذرواژه رعایت نشده است!")
                                     }else{
+                                        tags.push(username)
+                                        tags.push(email)
+                                        tags.push(act)
+                                        console.log(tags)
                                         Axios.post("http://localhost:3001/addUser" , {
                                             username,
                                             email,
@@ -130,6 +137,10 @@ const Register = () => {
                                             act,
                                             bookmarkId
                                         }).then(()=>{
+                                            Axios.post("http://localhost:3001/addResume" , {
+                                                usertokenref: token,
+                                                tags
+                                            })
                                             localStorage.setItem('token',token);
                                             messageApi.open({
                                                 type: 'success',
@@ -163,6 +174,7 @@ const Register = () => {
             setUsernameError("نام کاربری نمی تواند خالی باشد!")
         }
     }
+
     return (
         <>
             <Navigation/>

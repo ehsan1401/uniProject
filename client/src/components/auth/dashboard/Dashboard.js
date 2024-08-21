@@ -12,6 +12,7 @@ import { FaRegBookmark } from "react-icons/fa6";
 import Resume from "./resume";
 import Setting from "./setting";
 import { IoDocumentText , IoSettingsOutline } from "react-icons/io5";
+import Access from "../../Tools/acess";
 
 
 
@@ -39,11 +40,7 @@ const Dashboard = () => {
         })
     },[])
 
-    const handleLogout = ()=>{
-        localStorage.clear();
-        navigate('/home');
-        window.location.reload();
-    }
+
 
 
     const items = [
@@ -54,8 +51,8 @@ const Dashboard = () => {
         },
         {
             key: '2',
-            label: <div className="flex"><span className="text-xl" style={{fontFamily: "Negaar-Regular"}}>روزمه</span><span className="text-lg pt-1 px-2"><IoDocumentText /></span></div>,
-            children: <Resume />,
+            label: <div className="flex"><span className="text-xl" style={{fontFamily: "Negaar-Regular"}}>بروزرسانی روزمه</span><span className="text-lg pt-1 px-2"><IoDocumentText /></span></div>,
+            children: UserInfo.act !== 'student' ? <Resume userInfo={UserInfo}/> : <Access message={`دانش آموز نمی تواند رزومه اضافه کند!`}/>,
         },
         {
             key: '3',
@@ -78,7 +75,6 @@ const Dashboard = () => {
                         <Tabs defaultActiveKey="1" items={items} type="card" style={{
                             height : "100%",
                         }} />
-
                     </div>
                 </div>
         </>

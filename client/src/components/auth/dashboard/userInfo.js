@@ -1,14 +1,26 @@
-import { ConfigProvider, Descriptions, Divider, Image } from "antd";
+import { Button, ConfigProvider, Descriptions, Divider, Image } from "antd";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const UserInfo = ({ userInfo }) => {
     const [ip, setIp] = useState();
+    const navigate = useNavigate();
   
     const getIp = async () => {
-      const response = await fetch("https://ipapi.co/json/");
-      const data = await response.json();
-      setIp(data.ip);
+      try {
+        const response = await fetch("https://ipapi.co/json/");
+        const data = await response.json();
+        setIp(data.ip);
+      } catch (error) {
+        setIp("مشکل در شناسایی آی پی");
+      }
     };
+
+    const handleLogout = ()=>{
+      localStorage.clear();
+      navigate('/home');
+      window.location.reload();
+  }
   
     useEffect(() => {
       getIp();
@@ -36,10 +48,16 @@ const UserInfo = ({ userInfo }) => {
       },
       {
         key: '5',
-        label: 'آدرس',
-        children: `${userInfo.HouseAddress ? userInfo.HouseAddress : "وارد نشده"}`,
+        label: 'مدرک تحصیلی',
+        children: `${userInfo.degree ? userInfo.degree : "وارد نشده"}`,
+      },
+      {
+        key: '6',
+        label: 'سال تولد',
+        children: `${userInfo.Birthday ? userInfo.Birthday : "وارد نشده"}`,
       },
     ];
+
     return (
       <div className="h-[65vh] rounded-b-xl p-3 flex border-dashed border-neutral-400 border-2 border-t-0 bg-neutral-200">
             <div className="h-full w-1/3 flex flex-col items-center py-16 px-5">
@@ -57,8 +75,19 @@ const UserInfo = ({ userInfo }) => {
                 <h1 style={{
                       fontFamily:"ComicSans"
                   }}>{userInfo.email}</h1>
-                <p style={{fontFamily:"Vanilla"}}>آی پی شما : <span style={{fontFamily:"ComicSans"}}>{ip}</span></p>
+                <p style={{fontFamily:"Vanilla"}}>آی پی شما : <span style={{fontFamily:"ComicSans , Negaar-Regular"}}>{ip}</span></p>
+                <Button
+                  danger
+                  type="primary"
+                  style={{marginTop:"6px" , fontFamily:"Negaar-Bold"}}
+                  onClick={handleLogout}
+                >
+                  <span>
+                    خروج از حساب کاربری
+                  </span>
+              </Button>
             </div>
+
             <div className="h-full p-8 w-2/3" dir="rtl">
             <ConfigProvider
               theme={{
@@ -73,7 +102,6 @@ const UserInfo = ({ userInfo }) => {
                 fontFamily:"Negaar-Regular , ComicSans",
               }} />
             </ConfigProvider>
-
             </div>
 
         </div>

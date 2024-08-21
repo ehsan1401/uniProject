@@ -1,29 +1,33 @@
 import Navigation from "../Tools/NavBar";
 import { Button } from 'antd';
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { IoLogOut } from "react-icons/io5";
-
+import Axios from 'axios'
 
 const HomePage = () => {
   const token = localStorage.getItem('token');
+  const [Users , setUsers] = useState([{}])
 
-  const handleLogout = ()=>{
-    localStorage.clear();
-    window.location.reload();
 
-  }
+
+  useEffect(()=>{
+    Axios.get("http://localhost:3001/getUsers").then((response)=>{
+      setUsers(response.data)
+    })
+  },[])
 
     return (
-      <div className="home">
+      <div className="home w-full">
         <Navigation/>
-        <p>This is home page.</p>
-        <p>user token : {token}</p>
-        {
-          token && 
-          <Button type="primary" size="large" icon={<IoLogOut/>} onClick={handleLogout}>
-            خروج
-          </Button>
-        }
+        <div className="flex w-full">
+          <div className="bg-lime-300 w-3/4 h-screen">
+
+          </div>
+          <div className="bg-yellow-300 w-1/4 h-screen">
+
+          </div>
+          
+        </div>
       </div>
         
     );
