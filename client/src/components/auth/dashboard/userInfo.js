@@ -64,7 +64,7 @@ const UserInfo = ({ userInfo }) => {
                 <div 
                     className="image w-40 h-40 bg-neutral-400 bg-cover rounded-full bg-center hover:scale-110 duration-200" 
                     style={{
-                        backgroundImage : `url(${userInfo.imageAddress ? userInfo.imageAddress : '/images/UserLogo.png'})`
+                        backgroundImage : `url(${userInfo.imageAddress ? userInfo.imageAddress : '/images/UserLogo.jpg'})`
                     }}
                 ></div>
                 <Divider style={{  borderColor: '#7cb305' }}>
