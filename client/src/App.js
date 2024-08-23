@@ -10,6 +10,7 @@ import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import Dashboard from './components/auth/dashboard/Dashboard';
 import {MessageProvider} from './components/Tools/MessageProvider';
+import ShowUserInformation from './components/pages/ShowUserInformation';
 function App() {
 
   const router = createBrowserRouter([
@@ -31,6 +32,9 @@ function App() {
     },{
       path: "/Dashboard",
       element: <Dashboard/>,
+    },{
+      path: "/ShowUserInformation/:userBookmarkId",
+      element: <ShowUserInformation/>,
     },{
       path: "*",
       element: <NotFoundPage/>,
