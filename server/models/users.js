@@ -24,6 +24,10 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: false,
   },
+  ResumeCover: {
+    type : String,
+    required : false,
+  },
   PhoneNumber: {
     type: String,
     required: false,
