@@ -11,6 +11,7 @@ import Register from './components/auth/Register';
 import Dashboard from './components/auth/dashboard/Dashboard';
 import {MessageProvider} from './components/Tools/MessageProvider';
 import ShowUserInformation from './components/pages/ShowUserInformation';
+import Developing from './components/Tools/Developing';
 function App() {
 
   const router = createBrowserRouter([
@@ -32,6 +33,9 @@ function App() {
     },{
       path: "/Dashboard",
       element: <Dashboard/>,
+    },{
+      path: "/Developing",
+      element: <Developing/>,
     },{
       path: "/ShowUserInformation/:userBookmarkId",
       element: <ShowUserInformation/>,

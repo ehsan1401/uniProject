@@ -8,6 +8,10 @@ const ResumeSchema = new mongoose.Schema({
     type: String,
     required: false,
   },
+  fieldOfStudy: {
+    type: String,
+    required: false,
+  },
   firstName: {
     type: String,
     required: false,

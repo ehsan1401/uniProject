@@ -12,6 +12,8 @@ import { EllipsisOutlined, FileTextOutlined, UserOutlined } from '@ant-design/ic
 const HomePage = () => {
   const token = localStorage.getItem('token');
   const [Users , setUsers] = useState([{}])
+  const [allResume , setAllResume] = useState([{}])
+
   const navigate = useNavigate();
   const [searchedUsers , setSearchedUsers] = useState([])
   const [searchedUsersResume , setSearchedUsersResume] = useState([])
@@ -50,7 +52,12 @@ const HomePage = () => {
       setUsers(response.data)
     })
   },[])
-
+  useEffect(()=>{
+    Axios.get("http://localhost:3001/GetAllResume").then((response)=>{
+      setAllResume(response.data)
+    })
+  },[])
+  console.log(allResume)
   return (
     <div className="home w-full">
       <Navigation/>
@@ -80,6 +87,23 @@ const HomePage = () => {
                               <p className="text-sm">
                                 <span>مدرک تحصیلی: </span>
                                 <span>{seus.degree}</span>
+
+                              </p>
+                              <p className="text-sm">
+                                <span>رشته تحصیلی: </span>
+                                <span>                            
+                                {
+                                searchedUsersResume.map((eachUserResume) => {
+                                  if (eachUserResume.usertokenref === seus.token) {
+                                    return(
+                                      <>
+                                        {eachUserResume.fieldOfStudy}
+                                      </>
+                                    )
+                                }
+                                return null;
+                              })
+                            }</span>
 
                               </p>
                             </div>
@@ -147,7 +171,7 @@ const HomePage = () => {
                           </div>
                         }
                         actions={[
-                          <Link to={`#`}>
+                          <Link to={`/ShowUserInformation/${user.bookmarkId}`}>
                             <Tooltip title="صفحه کاربر">
                               <UserOutlined key="user" />
                             </Tooltip>
@@ -169,7 +193,13 @@ const HomePage = () => {
                         <Meta
                           avatar={<Avatar src={user.imageAddress? user.imageAddress : "/images/UserLogo.jpg"} />}
                           title={user.username}
-                          description={user.degree}
+                          description={
+                            allResume.map((resumeuser)=>{
+                              if(resumeuser.usertokenref === user.token){
+                                return(resumeuser.fieldOfStudy?resumeuser.fieldOfStudy : user.degree)
+                              }
+                            })
+                          }
                         />
                       </Card>
                     }

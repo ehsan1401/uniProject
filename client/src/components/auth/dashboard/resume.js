@@ -27,6 +27,8 @@ const Resume = ({ userInfo }) => {
     const [experience , setExperience] = useState([])
     const [certifications , setCertifications] = useState([])
     const [certificationChange , setCertificationChange] = useState()
+    const [fieldOfStudy , setFieldOfStudy] = useState()
+
     var tags = []
     const [Users , setUsers] = useState([{}])
 
@@ -86,6 +88,7 @@ const Resume = ({ userInfo }) => {
             tags.push(summary)
             tags.push(experience)
             tags.push(certifications)
+            tags.push(fieldOfStudy)
             axios.post(`http://localhost:3001/deleteResume/${userInfo.token}`)
             axios.post("http://localhost:3001/addResume" , {
                 usertokenref: userInfo.token,
@@ -99,6 +102,7 @@ const Resume = ({ userInfo }) => {
                 Summary: summary,
                 experience: experience,
                 certifications: certifications,
+                fieldOfStudy: fieldOfStudy,
                 tags : tags
             }).then(()=>{
                 Users.forEach((user) => {
@@ -202,8 +206,8 @@ const Resume = ({ userInfo }) => {
                                     />
                                 </div>
                             </div>
-                            <div className='flex gap-10 w-full'>
-                                <div className='w-1/2 flex items-center gap-5 pt-6'>
+                            <div className='flex gap-3 w-full'>
+                                <div className='w-1/3 flex items-center gap-3 pt-6'>
                                     <label htmlFor="degree">مدرک تحصیلی</label>
                                     {/* <Input 
                                         type="text"
@@ -215,7 +219,7 @@ const Resume = ({ userInfo }) => {
                                     <Select
                                         defaultValue={userInfo.degree}
                                         onChange={(e)=>{setDegree(e)}}
-                                        style={{width:"200px"}}
+                                        style={{width:"150px"}}
                                         showSearch
                                         placeholder="آخرین مدرک تحصیلی"
                                         optionFilterProp="label"
@@ -263,7 +267,8 @@ const Resume = ({ userInfo }) => {
                                         ]}
                                     />
                                 </div>
-                                <div className='w-1/2 relative flex items-center gap-3 pt-6 '>
+                                
+                                <div className='w-1/3 relative flex items-center justify-center gap-3 pt-6'>
                                     <label htmlFor="birthday" className=''>تاریخ تولد</label>
                                     {/* <Input 
                                         type="text"
@@ -289,6 +294,15 @@ const Resume = ({ userInfo }) => {
                                         </div>
                                     }
                                     <p>{birthday}</p>
+                                </div>
+                                <div className='w-1/3'>
+                                    <label htmlFor="fieldOfStudy">رشته تحصیلی</label>
+                                    <Input 
+                                        type="text"
+                                        name='fieldOfStudy'
+                                        placeholder='رشته تحصیلی'
+                                        onChange={(e)=>{setFieldOfStudy(e.target.value)}}
+                                    />
                                 </div>
                             </div>
                             <div className='flex items-center gap-3 pt-6'>

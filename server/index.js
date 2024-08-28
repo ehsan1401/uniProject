@@ -29,6 +29,15 @@ app.get("/FindResume/:token", async (req, res) => {
     }
 });
 
+app.get("/GetAllResume", async (req, res) => {
+    try {
+        const resume = await UserResume.find({});
+        res.json(resume);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
 
 app.post("/SearchItem/:searchparam", async (req, res) => {
 
