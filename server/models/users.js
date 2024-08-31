@@ -48,6 +48,14 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: false,
   },
+  file: {
+    type: String,
+    required: false,
+  },
+  notes: {
+    type: [String],
+    required: false,
+  },
 });
 
 const UserModel = mongoose.model("users", UserSchema);

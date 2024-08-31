@@ -115,6 +115,10 @@ const Resume = ({ userInfo }) => {
                             password : userInfo.password,
                             act : userInfo.act,
                             bookmarkId : userInfo.bookmarkId,
+                            imageAddress : userInfo.imageAddress,
+                            ResumeCover : userInfo.ResumeCover,
+                            bookmarks : userInfo.bookmarks,
+                            file : userInfo.file,
                             PhoneNumber : phoneNumber,
                             Birthday : birthday,
                             degree : degree

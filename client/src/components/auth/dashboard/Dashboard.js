@@ -62,7 +62,7 @@ const Dashboard = () => {
         {
             key: '4',
             label: <div className="flex"><span className="text-xl" style={{fontFamily: "Negaar-Regular"}}>تنظیمات</span><span className="text-lg pt-1 px-2"><IoSettingsOutline /></span></div>,
-            children: <Setting />,
+            children: <Setting userInfo={UserInfo} />,
         },
 
       ];

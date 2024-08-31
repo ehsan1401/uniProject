@@ -128,7 +128,6 @@ const Register = () => {
                                         tags.push(username)
                                         tags.push(email)
                                         tags.push(act)
-                                        console.log(tags)
                                         Axios.post("http://localhost:3001/addUser" , {
                                             username,
                                             email,

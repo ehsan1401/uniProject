@@ -12,6 +12,8 @@ import Dashboard from './components/auth/dashboard/Dashboard';
 import {MessageProvider} from './components/Tools/MessageProvider';
 import ShowUserInformation from './components/pages/ShowUserInformation';
 import Developing from './components/Tools/Developing';
+import TestFile from "./components/Tools/testFileUpdate"
+
 function App() {
 
   const router = createBrowserRouter([
@@ -39,6 +41,9 @@ function App() {
     },{
       path: "/ShowUserInformation/:userBookmarkId",
       element: <ShowUserInformation/>,
+    },{
+      path: "/testFile",
+      element: <TestFile/>,
     },{
       path: "*",
       element: <NotFoundPage/>,

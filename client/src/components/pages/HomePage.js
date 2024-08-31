@@ -81,7 +81,9 @@ const HomePage = () => {
                         style={{fontFamily:"ComicSans , Negaar-Regular"}}
                         >
                           <div className="flex">
-                            <Avatar size={64} icon={<FaRegUser />} src="https://api.dicebear.com/7.x/miniavs/svg?seed=1" shape="circle" className="border-2 border-solid border-neutral-200 bg-white" />
+                          
+                          
+                            <Avatar size={64} icon={<FaRegUser />} src={seus.imageAddress ? `http://localhost:3001/images/${seus?.imageAddress}` : "https://api.dicebear.com/7.x/miniavs/svg?seed=1" } shape="circle" className="border-2 border-solid border-neutral-200 bg-white" />
                             <div className="flex flex-col px-4 pt-2">
                               <h1 className="flex items-center text-2xl" >{seus.username}</h1>
                               <p className="text-sm">
@@ -163,7 +165,7 @@ const HomePage = () => {
                         cover={
                           <div
                             style={{
-                              backgroundImage:`url(${user.ResumeCover? user.ResumeCover : "/images/Default_background_resume.jpg"})`
+                              backgroundImage:`url(${user.ResumeCover? `http://localhost:3001/cover/${user?.ResumeCover}` : "/images/Default_background_resume.jpg"})`
                             }}
                             className="bg-cover w-full h-40 bg-center"
                           >
@@ -191,7 +193,7 @@ const HomePage = () => {
                         ]}
                       >
                         <Meta
-                          avatar={<Avatar src={user.imageAddress? user.imageAddress : "/images/UserLogo.jpg"} />}
+                          avatar={<Avatar src={user.imageAddress? `http://localhost:3001/images/${user?.imageAddress}` : "/images/UserLogo.jpg"} />}
                           title={user.username}
                           description={
                             allResume.map((resumeuser)=>{
@@ -223,7 +225,7 @@ const HomePage = () => {
                         <Avatar 
                           size={64} 
                           icon={<FaRegUser />} 
-                          src="https://api.dicebear.com/7.x/miniavs/svg?seed=1" 
+                          src= {user.imageAddress? `http://localhost:3001/images/${user?.imageAddress}` : "https://api.dicebear.com/7.x/miniavs/svg?seed=1"}
                           shape="circle" 
                           className="border-2 border-solid border-neutral-200 bg-white"
                         />

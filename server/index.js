@@ -1,10 +1,13 @@
 // WBzgQsaAsdZWyerW
+// mongodb+srv://ehsangood1382:WBzgQsaAsdZWyerW@cls.hzyer62.mongodb.net/
 const express = require("express");
 const app = express();
 const mongoose = require('mongoose');
 const UserModel = require('./models/users');
 const UserResume = require('./models/Resume');
-const cors = require('cors')
+const cors = require('cors');
+const multer = require('multer');
+const path = require('path')
 
 
 mongoose.connect(
@@ -16,8 +19,65 @@ mongoose.connect(
 
 app.use(express.json());
 app.use(cors());
+app.use(express.static('public'))
+
+// upload image profile storage
+
+const storageImageProfile = multer.diskStorage({
+    destination : (req , file , cb )=>{
+        cb(null, 'public/images')
+    },
+    filename : (req , file , cb )=>{
+        cb(null , file.fieldname + "_" + Date.now() + path.extname(file.originalname))
+    },
+})
+const uploadImageProfile = multer({
+    storage  : storageImageProfile
+})
+
+// upload file storage
+
+const storageuploadFile = multer.diskStorage({
+    destination : (req , file , cb )=>{
+        cb(null, 'public/doc')
+    },
+    filename : (req , file , cb )=>{
+        cb(null , file.fieldname + "_" + Date.now() + path.extname(file.originalname))
+    },
+})
+const uploadFile = multer({
+    storage  : storageuploadFile
+})
 
 
+app.post("/UploadFile" , uploadFile.single('file'), async (req , res)=>{
+    const user = req.body;
+    user.file = req.file.filename
+    const newUser = new UserModel(user);
+  try {
+      const savedUser = await newUser.save();
+      res.json(savedUser);
+  } catch (err) {
+      res.status(500).json({ message: err.message });
+  }
+
+})
+
+
+
+
+app.post("/UploadImageProfile" , uploadImageProfile.single('imageAddress'), async (req , res)=>{
+    const user = req.body;
+    user.imageAddress = req.file.filename
+    const newUser = new UserModel(user);
+  try {
+      const savedUser = await newUser.save();
+      res.json(savedUser);
+  } catch (err) {
+      res.status(500).json({ message: err.message });
+  }
+
+})
 
 
 app.get("/FindResume/:token", async (req, res) => {
@@ -92,9 +152,6 @@ app.get("/GetEmails", async (req, res) => {
     }
 });
 
-
-
-// ehsan.good1382@gmail.com
 app.delete("/deleteUser/:token", async (req, res) => {
     try {
         const result = await UserModel.deleteOne({ token: req.params.token });
