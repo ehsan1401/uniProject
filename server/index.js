@@ -49,10 +49,37 @@ const uploadFile = multer({
     storage  : storageuploadFile
 })
 
+// upload cover storage
+
+const storageuploadCover = multer.diskStorage({
+    destination : (req , file , cb )=>{
+        cb(null, 'public/cover')
+    },
+    filename : (req , file , cb )=>{
+        cb(null , file.fieldname + "_" + Date.now() + path.extname(file.originalname))
+    },
+})
+const uploadCover = multer({
+    storage  : storageuploadCover
+})
+
 
 app.post("/UploadFile" , uploadFile.single('file'), async (req , res)=>{
     const user = req.body;
     user.file = req.file.filename
+    const newUser = new UserModel(user);
+  try {
+      const savedUser = await newUser.save();
+      res.json(savedUser);
+  } catch (err) {
+      res.status(500).json({ message: err.message });
+  }
+
+})
+
+app.post("/UploadCover" , uploadCover.single('ResumeCover'), async (req , res)=>{
+    const user = req.body;
+    user.ResumeCover = req.file.filename
     const newUser = new UserModel(user);
   try {
       const savedUser = await newUser.save();

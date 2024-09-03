@@ -13,6 +13,7 @@ import Resume from "./resume";
 import Setting from "./setting";
 import { IoDocumentText , IoSettingsOutline } from "react-icons/io5";
 import Access from "../../Tools/acess";
+import ResumeSetting from "./ResumeSetting";
 
 
 
@@ -61,6 +62,11 @@ const Dashboard = () => {
         },        
         {
             key: '4',
+            label: <div className="flex"><span className="text-xl" style={{fontFamily: "Negaar-Regular"}}>تنظیمات رزومه</span><span className="text-lg pt-1 px-2"><IoSettingsOutline /></span></div>,
+            children: <ResumeSetting userInfo={UserInfo} />,
+        },,        
+        {
+            key: '5',
             label: <div className="flex"><span className="text-xl" style={{fontFamily: "Negaar-Regular"}}>تنظیمات</span><span className="text-lg pt-1 px-2"><IoSettingsOutline /></span></div>,
             children: <Setting userInfo={UserInfo} />,
         },

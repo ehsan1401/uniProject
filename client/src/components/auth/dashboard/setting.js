@@ -61,13 +61,13 @@ const Setting = ({userInfo}) => {
     return (
         <div className="h-[65vh] rounded-b-xl px-8 py-5 flex flex-col border-dashed border-neutral-400 border-2 border-t-0 bg-neutral-200">
             <div dir="rtl" className="w-full flex">
-                <div className="w-[50%] pt-5">
+                <div className="w-[50%]">
                     <h1 className="text-4xl text-neutral-700" style={{fontFamily:"Titr"}}>
                         <span> 
                             تنظیمات
                         </span>
                     </h1>
-                    <h1 className="text-xl text-neutral-800 py-3" style={{fontFamily:"Negaar-Bold"}}>
+                    <h1 className="text-xl text-neutral-800 pt-5" style={{fontFamily:"Negaar-Bold"}}>
                         <span>
                             آپدیت اطلاعات کاربری
                         </span>
