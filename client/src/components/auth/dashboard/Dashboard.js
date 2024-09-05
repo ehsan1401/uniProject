@@ -14,6 +14,9 @@ import Setting from "./setting";
 import { IoDocumentText , IoSettingsOutline } from "react-icons/io5";
 import Access from "../../Tools/acess";
 import ResumeSetting from "./ResumeSetting";
+import Article from "./Article";
+import { RiArticleLine } from "react-icons/ri";
+
 
 
 
@@ -59,14 +62,19 @@ const Dashboard = () => {
             key: '3',
             label: <div className="flex"><span className="text-xl" style={{fontFamily: "Negaar-Regular"}}>ذخیره شده ها</span><span className="text-lg pt-1 px-2"><FaRegBookmark /></span></div>,
             children: <Bookmark />,
-        },        
+        }, 
         {
             key: '4',
+            label: <div className="flex"><span className="text-xl" style={{fontFamily: "Negaar-Regular"}}>مقالات و جزوات</span><span className="text-lg pt-1 px-2"><RiArticleLine /></span></div>,
+            children: <Article/>,
+        },      
+        {
+            key: '5',
             label: <div className="flex"><span className="text-xl" style={{fontFamily: "Negaar-Regular"}}>تنظیمات رزومه</span><span className="text-lg pt-1 px-2"><IoSettingsOutline /></span></div>,
             children: <ResumeSetting userInfo={UserInfo} />,
         },,        
         {
-            key: '5',
+            key: '6',
             label: <div className="flex"><span className="text-xl" style={{fontFamily: "Negaar-Regular"}}>تنظیمات</span><span className="text-lg pt-1 px-2"><IoSettingsOutline /></span></div>,
             children: <Setting userInfo={UserInfo} />,
         },

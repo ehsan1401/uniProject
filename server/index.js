@@ -5,6 +5,7 @@ const app = express();
 const mongoose = require('mongoose');
 const UserModel = require('./models/users');
 const UserResume = require('./models/Resume');
+const ArticlesModel = require('./models/Articles');
 const cors = require('cors');
 const multer = require('multer');
 const path = require('path')
@@ -62,6 +63,22 @@ const storageuploadCover = multer.diskStorage({
 const uploadCover = multer({
     storage  : storageuploadCover
 })
+
+// upload Article storage
+
+const storageuploadArticle = multer.diskStorage({
+    destination : (req , file , cb )=>{
+        cb(null, 'public/Article')
+    },
+    filename : (req , file , cb )=>{
+        cb(null , file.fieldname + "_" + Date.now() + path.extname(file.originalname))
+    },
+})
+const uploadArticle = multer({
+    storage  : storageuploadArticle
+})
+
+
 
 
 app.post("/UploadFile" , uploadFile.single('file'), async (req , res)=>{
@@ -202,6 +219,42 @@ app.post("/addUser", async (req, res) => {
       res.status(500).json({ message: err.message });
   }
 });
+
+
+app.post("/UploadArticleّFile" , uploadArticle.single('file'), async (req , res)=>{
+    const Article = req.body;
+    Article.file = req.file.filename
+    const newUser = new ArticlesModel(Article);
+  try {
+      const savedUser = await newUser.save();
+      res.json(savedUser);
+  } catch (err) {
+      res.status(500).json({ message: err.message });
+  }
+
+})
+
+
+app.post("/addArticleLink", async (req, res) => {
+    const addArticle = req.body;
+    const newArticle = new ArticlesModel(addArticle);
+
+  try {
+      const savedArticle = await newArticle.save();
+      res.json(savedArticle);
+  } catch (err) {
+      res.status(500).json({ message: err.message });
+  }
+});
+
+
+
+
+
+
+
+
+
 
 app.listen(3001, () => {
     console.log("Server is running on port 3001");

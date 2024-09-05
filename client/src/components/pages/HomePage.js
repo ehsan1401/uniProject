@@ -211,7 +211,7 @@ const HomePage = () => {
             </div>
           </div>
         </div>
-        <div className="bg-yellow-300 w-1/4 h-full p-4" dir="rtl">
+        <div className="w-1/4 h-full p-4" dir="rtl">
           <div className="bg-neutral-100 rounded-md h-36 w-full relative p-3">
           {Users.map((user)=>{
             return(
