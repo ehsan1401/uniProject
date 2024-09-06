@@ -16,6 +16,8 @@ mongoose.connect(
     { useNewUrlParser: true, useUnifiedTopology: true }
 ).then(async () => {
     await UserResume.ensureIndexes();
+    await ArticlesModel.ensureIndexes();
+
 });
 
 app.use(express.json());
@@ -221,19 +223,18 @@ app.post("/addUser", async (req, res) => {
 });
 
 
-app.post("/UploadArticleّFile" , uploadArticle.single('file'), async (req , res)=>{
+app.post("/UploadArticleFile" , uploadArticle.single('file'), async (req , res)=>{
     const Article = req.body;
     Article.file = req.file.filename
     const newUser = new ArticlesModel(Article);
-  try {
-      const savedUser = await newUser.save();
-      res.json(savedUser);
-  } catch (err) {
-      res.status(500).json({ message: err.message });
-  }
+    try {
+        const savedUser = await newUser.save();
+        res.json(savedUser);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
 
 })
-
 
 app.post("/addArticleLink", async (req, res) => {
     const addArticle = req.body;
@@ -249,9 +250,36 @@ app.post("/addArticleLink", async (req, res) => {
 
 
 
+app.get("/getArticles", async (req, res) => {
+    try {
+        const Articles = await ArticlesModel.find({});
+        res.json(Articles);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
 
+app.get("/getUserArticles/:token", async (req, res) => {
+    try {
+        const Articles = await ArticlesModel.find({tokenRef: req.params.token});
+        res.json(Articles);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
 
-
+app.delete("/deleteArticle/:id", async (req, res) => {
+    try {
+        const result = await ArticlesModel.deleteOne({ id: req.params.id });
+        if (result.deletedCount > 0) {
+            res.json({ message: "Article successfully deleted" });
+        } else {
+            res.status(404).json({ message: "Article not found" });
+        }
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
 
 
 

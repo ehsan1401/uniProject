@@ -143,29 +143,32 @@ const ShowUserInformation = () => {
                                                                             </span>
                                                                         </div>
                                                                     </div>
-                                                                    <div className="px-5 mx-3 my-5 py-3 text-base flex flex-col border-2 border-dashed border-neutral-200 rounded-md">
-                                                                        {
-                                                                            element.experience?.map((xp)=>{
-                                                                                return(
-                                                                                    <>
-                                                                                        <h1 className="text-lg" style={{fontFamily:"Titr"}}>{xp.title}</h1>
-                                                                                        <div className="flex py-5">
-                                                                                            <h2 style={{fontFamily:'Negaar-Bold'}}>
-                                                                                                {xp.address}
-                                                                                            </h2>
-                                                                                            <span className="px-3">-</span>
-                                                                                            <h2 className="pr-14 font-mono">
-                                                                                                {xp.date} 
-                                                                                            </h2>
-                                                                                        </div>
-                                                                                        <p className="py-2 text-sm">
-                                                                                            {xp.text}
-                                                                                        </p>
-                                                                                    </>
-                                                                                )
-                                                                            })
-                                                                        }
-                                                                    </div>
+                                                                    {element.experience[0] &&
+                                                                        <div className="px-5 mx-3 my-5 py-3 text-base flex flex-col border-2 border-dashed border-neutral-200 rounded-md">
+                                                                            {
+                                                                                element.experience?.map((xp)=>{
+                                                                                    return(
+                                                                                        <>
+                                                                                            <h1 className="text-lg" style={{fontFamily:"Titr"}}>{xp.title}</h1>
+                                                                                            <div className="flex py-5">
+                                                                                                <h2 style={{fontFamily:'Negaar-Bold'}}>
+                                                                                                    {xp.address}
+                                                                                                </h2>
+                                                                                                <span className="px-3">-</span>
+                                                                                                <h2 className="pr-14 font-mono">
+                                                                                                    {xp.date} 
+                                                                                                </h2>
+                                                                                            </div>
+                                                                                            <p className="py-2 text-sm">
+                                                                                                {xp.text}
+                                                                                            </p>
+                                                                                        </>
+                                                                                    )
+                                                                                })
+                                                                            }
+                                                                        </div>
+                                                                    }
+
                                                                 </div>
                                                                 <div>
                                                                     <div className="flex w-full">

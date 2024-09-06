@@ -4,40 +4,41 @@
 
 
 
-@font-face {
-    font-family: 'Negaar-Bold';
-    src: url('../public/Fonts/Negaar\ Bold.ttf') format('truetype');
-    }
-@font-face {
-    font-family: 'Negaar-Regular';
-    src: url('../public/Fonts/Negaar\ Regular.ttf') format('truetype');
-    }
+  @font-face {
+      font-family: 'Negaar-Bold';
+      src: url('../public/Fonts/Negaar\ Bold.ttf') format('truetype');
+      }
+  @font-face {
+      font-family: 'Negaar-Regular';
+      src: url('../public/Fonts/Negaar\ Regular.ttf') format('truetype');
+      }
 
-@font-face {
-    font-family: 'koodak';
-    src: url('../public/Fonts/B\ Koodak.ttf') format('truetype');
-    }
-@font-face {
-    font-family: 'ComicSans';
-    src: url('../public/Fonts/ComicSansMS3.ttf') format('truetype');
-    }
-@font-face {
-    font-family: 'Extender';
-    src: url('../public/Fonts/Mj_Extender\ X4.ttf') format('truetype');
-    }
-@font-face {
-    font-family: 'Vanilla';
-    src: url('../public/Fonts/Mj_Vanilla.ttf') format('truetype');
-    }
-@font-face {
-    font-family: 'Titr';
-    src: url('../public/Fonts/BTitrBold.ttf') format('truetype');
-    }
+  @font-face {
+      font-family: 'koodak';
+      src: url('../public/Fonts/B\ Koodak.ttf') format('truetype');
+      }
+  @font-face {
+      font-family: 'ComicSans';
+      src: url('../public/Fonts/ComicSansMS3.ttf') format('truetype');
+      }
+  @font-face {
+      font-family: 'Extender';
+      src: url('../public/Fonts/Mj_Extender\ X4.ttf') format('truetype');
+      }
+  @font-face {
+      font-family: 'Vanilla';
+      src: url('../public/Fonts/Mj_Vanilla.ttf') format('truetype');
+      }
+  @font-face {
+      font-family: 'Titr';
+      src: url('../public/Fonts/BTitrBold.ttf') format('truetype');
+      }
+  @font-face {
+      font-family: 'Vazir';
+      src: url('../public/Fonts/VazirMedium.ttf') format('truetype');
+      }
 
 
-
-
-    
     /* styles */
 
 

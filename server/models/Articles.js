@@ -12,6 +12,10 @@ const ArticlesSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  id: {
+    type: String,
+    required: true,
+  },
   file: {
     type: String,
     required: false,

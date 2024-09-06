@@ -66,7 +66,7 @@ const Dashboard = () => {
         {
             key: '4',
             label: <div className="flex"><span className="text-xl" style={{fontFamily: "Negaar-Regular"}}>مقالات و جزوات</span><span className="text-lg pt-1 px-2"><RiArticleLine /></span></div>,
-            children: <Article/>,
+            children: UserInfo.act !== 'student' ? <Article userInfo={UserInfo}/> : <Access message={`دانش آموز نمی تواند مقاله و جزوه اضافه کند!`}/>,
         },      
         {
             key: '5',
